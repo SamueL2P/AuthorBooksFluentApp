@@ -20,7 +20,7 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Author Books App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 
 
                 @if (User.Identity.IsAuthenticated)
@@ -29,12 +29,14 @@
 
 
                 }
-                @Html.ActionLink("View Book List", "BookList", "Author")
+                @Html.ActionLink("View Book List", "BookList", "Author" , new {@class="bg-gray-700 p-2 mb-1 rounded-lg ml-3"})
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                   
-                        @Html.ActionLink("Logout", "Logout", "Author", null, new { @class = "text-red-600 hover:text-red-800 font-semibold" })
+                    <span class="ml-[44rem]">
+                        @Html.ActionLink("Logout", "Logout", "Author", null, new { @class = "text-red-600 hover:text-red-800 font-semibold bg-gray-700 p-2 rounded-lg" })
+                    </span>
+                     
 
 
                   

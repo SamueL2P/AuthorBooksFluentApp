@@ -66,29 +66,7 @@ namespace AuthorBooksFluentApp.Controllers
         }
 
 
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-
-        public ActionResult Register(Author author)
-        {
-            using (var session = NHibernateHelper.CreateSession())
-            {
-
-                using (var txt = session.BeginTransaction())
-                {
-                    author.AuthorDetail.Author = author;
-                    author.Password = BCrypt.Net.BCrypt.HashPassword(author.Password);
-                    session.Save(author);
-                    txt.Commit();
-                    return RedirectToAction("Login");
-                }
-            }
-        }
-
+       
         [AllowAnonymous]
         public ActionResult Create()
         {
@@ -116,7 +94,7 @@ namespace AuthorBooksFluentApp.Controllers
 
         }
 
-        public ActionResult Edit(Guid id)  // Update parameter type
+        public ActionResult Edit(Guid id)  
         {
             using (var session = NHibernateHelper.CreateSession())
             {

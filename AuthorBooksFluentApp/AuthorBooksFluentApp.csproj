@@ -244,7 +244,6 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
-    <Compile Include="Controllers\AuthorDetailController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Data\NHibernateHelper.cs" />
     <Compile Include="Global.asax.cs">

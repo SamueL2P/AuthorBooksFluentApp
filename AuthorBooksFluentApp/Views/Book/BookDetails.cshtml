@@ -8,10 +8,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>BookDetails</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
+<body>  
+    <p class = "bg-green-600 text-white mt-2 w-max p-2  rounded-lg hover:bg-green-700">
+        @Html.ActionLink("Create New", "Create" , new {  })
     </p>
     <table class="table">
         <tr>
@@ -38,10 +39,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-               
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            <td class="w-40">
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-green-700  text-lg" })
+
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "text-red-700 ml-10 text-lg" })
             </td>
         </tr>
     }
