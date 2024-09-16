@@ -1,0 +1,25 @@
+﻿@model IEnumerable<AuthorBooksFluentApp.Models.Book>
+
+<h2>Book List</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Book Name</th>
+            <th>Genre</th>
+            <th>Description</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Name</td>
+                <td>@book.Genre</td>
+                <td>@book.Description</td>
+                <td>@book.Author.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

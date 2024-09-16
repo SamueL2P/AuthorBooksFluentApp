@@ -13,6 +13,7 @@ namespace AuthorBooksFluentApp
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            GlobalFilters.Filters.Add(new AuthorizeAttribute());
         }
     }
 }

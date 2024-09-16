@@ -1,9 +1,5 @@
 ﻿@model AuthorBooksFluentApp.Models.Book
 
-@{
-    Layout = null;
-}
-
 <!DOCTYPE html>
 
 <html>
@@ -47,11 +43,11 @@
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(model => model.Id)
-            @Html.Hidden("authId", (int)ViewBag.AuthId)
+            @Html.Hidden("authId", (Guid)ViewBag.AuthId)
 
             <div class="form-actions no-color">
                 <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
+          
             </div>
         }
     </div>

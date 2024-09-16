@@ -20,7 +20,7 @@ namespace AuthorBooksFluentApp.Data
             {
 
                 _sessionFactory = Fluently.Configure()
-                    .Database(MsSqlConfiguration.MsSql2012.ConnectionString("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AuthorBooksDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;"))
+                    .Database(MsSqlConfiguration.MsSql2012.ConnectionString("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AuthorGuidDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;"))
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<AuthorMap>())
                     .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(true, true))
                     .BuildSessionFactory();

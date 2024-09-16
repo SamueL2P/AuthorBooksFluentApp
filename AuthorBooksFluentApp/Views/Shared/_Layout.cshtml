@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+</head>
+<body>
+    <div class="navbar navbar-dark bg-dark navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header text-white">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <span style="color:white">Welcome @User.Identity.Name</span>
+
+
+                }
+                @Html.ActionLink("View Book List", "BookList", "Author")
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                   
+                        @Html.ActionLink("Logout", "Logout", "Author", null, new { @class = "text-red-600 hover:text-red-800 font-semibold" })
+
+
+                  
+                  
+
+                }
+
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content mt-10">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>Made By Samuel :)</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

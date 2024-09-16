@@ -12,7 +12,7 @@ namespace AuthorBooksFluentApp.Mappings
     {
         public BookMap() {
             Table("Books");
-            Id(b=> b.Id).GeneratedBy.Identity();
+            Id(b => b.Id).GeneratedBy.Identity();
             Map(b => b.Name);
             Map(b => b.Genre);
             Map(b => b.Description);

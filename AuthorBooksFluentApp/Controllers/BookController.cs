@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using AuthorBooksFluentApp.Data;
 using AuthorBooksFluentApp.Models;
-using NHibernate.Criterion;
-using NHibernate.Loader;
 
 namespace AuthorBooksFluentApp.Controllers
 {
@@ -18,12 +14,12 @@ namespace AuthorBooksFluentApp.Controllers
             return View();
         }
 
-        public ActionResult BookDetails(int authId)
+        public ActionResult BookDetails(Guid authId)
         {
             using (var session = NHibernateHelper.CreateSession())
             {
                 var books = session.Query<Book>().Where(o => o.Author.Id == authId).ToList();
-                TempData["AuthId"] = authId;
+                Session["AuthId"] = authId; 
 
                 return View(books);
             }
@@ -31,12 +27,17 @@ namespace AuthorBooksFluentApp.Controllers
 
         public ActionResult Create()
         {
-            int authId = (int)TempData["AuthId"];
-            ViewBag.AuthId = authId;
+            if (Session["AuthId"] != null)
+            {
+                Guid authId = (Guid)Session["AuthId"];
+                ViewBag.AuthId = authId;
+            }
+
             return View();
         }
+
         [HttpPost]
-        public ActionResult Create(Book book, int authId)
+        public ActionResult Create(Book book, Guid authId)
         {
             using (var session = NHibernateHelper.CreateSession())
             {
@@ -47,6 +48,7 @@ namespace AuthorBooksFluentApp.Controllers
 
                     session.Save(book);
                     transaction.Commit();
+
                     return RedirectToAction("BookDetails", new { authId = author.Id });
                 }
             }
@@ -56,23 +58,23 @@ namespace AuthorBooksFluentApp.Controllers
         {
             using (var session = NHibernateHelper.CreateSession())
             {
-
                 var book = session.Get<Book>(id);
-
-                ViewBag.AuthId = book.Author != null ? book.Author.Id : 0;
-
+                if (Session["AuthId"] != null)
+                {
+                    Guid authId = (Guid)Session["AuthId"];
+                    ViewBag.AuthId = authId;
+                }
                 return View(book);
             }
         }
 
         [HttpPost]
-        public ActionResult Edit(Book book, int authId)
+        public ActionResult Edit(Book book, Guid authId)
         {
             using (var session = NHibernateHelper.CreateSession())
             {
                 using (var transaction = session.BeginTransaction())
                 {
-
                     var existingBook = session.Get<Book>(book.Id);
 
                     existingBook.Name = book.Name;
@@ -82,9 +84,6 @@ namespace AuthorBooksFluentApp.Controllers
 
                     session.Update(existingBook);
                     transaction.Commit();
-
-
-                    ViewBag.AuthId =  authId;
 
                     return RedirectToAction("BookDetails", new { authId = authId });
                 }
@@ -96,30 +95,27 @@ namespace AuthorBooksFluentApp.Controllers
             using (var session = NHibernateHelper.CreateSession())
             {
                 var book = session.Get<Book>(id);
-                ViewBag.AuthId = book.Author != null ? book.Author.Id : 0;
-
+                Guid authId = (Guid)Session["AuthId"];
+                ViewBag.AuthId = authId;
                 return View(book);
             }
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id, int authId)
+        public ActionResult DeleteConfirmed(int id, Guid authId)
         {
             using (var session = NHibernateHelper.CreateSession())
             {
                 using (var transaction = session.BeginTransaction())
                 {
                     var book = session.Get<Book>(id);
-                    book.Author = session.Get<Author>(authId);
                     session.Delete(book);
                     transaction.Commit();
-
-
 
                     return RedirectToAction("BookDetails", new { authId = authId });
                 }
             }
         }
-
     }
 }

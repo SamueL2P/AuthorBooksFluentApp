@@ -11,7 +11,9 @@ namespace AuthorBooksFluentApp.Mappings
     {
         public AuthorMap() {
             Table("Authors");
-            Id(a=> a.Id).GeneratedBy.Identity();
+            Id(a => a.Id).GeneratedBy.GuidComb();
+            Map(a => a.UserName);
+            Map(a => a.Password);
             Map(a => a.Name);
             Map(a=>a.Email);
             Map(a => a.Age);
